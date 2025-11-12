@@ -1,143 +1,67 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Tienda de Relojes de Lujo</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tienda de Relojes de Lujo 🕰️✨</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/763/763704.png" />
 </head>
 <body>
+
   <header class="site-header">
     <div class="brand">
-      <h1>Tienda de Relojes de Lujo</h1>
-      <p class="tagline">Autenticidad certificada · Visor 3D · Comparador</p>
+      <h1>My Melody & Cinnamoroll Watches 💖</h1>
+      <p class="tagline">Relojes lindos, elegantes y con estilo pastel 🌸</p>
     </div>
 
-    <nav aria-label="Navegación principal">
+    <nav>
       <ul class="nav-list">
-        <li><a href="#inicio">Inicio</a></li>
         <li><a href="#catalogo">Catálogo</a></li>
-        <li><a href="#comparador">Comparador</a></li>
-        <li><a href="#autenticacion">Cuenta</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-        <li><button id="btn-carrito" aria-haspopup="dialog">Carrito (<span id="cart-count">0</span>)</button></li>
+        <li><a href="#carrito">Carrito 🛍️</a></li>
+        <li><a href="#cuenta">Cuenta</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
-    <!-- Inicio / Visor 3D -->
-    <section id="inicio" class="panel">
-      <h2>Visor 3D (simulado)</h2>
-      <p>Interactúa con el visor para ver el modelo del reloj. Usa el control para rotar.</p>
-      <div class="visor-wrap">
-        <canvas id="visor3D" width="600" height="400" aria-label="Visor 3D de reloj"></canvas>
-        <div class="controls">
-          <label for="rot">Rotación:</label>
-          <input id="rot" type="range" min="0" max="360" value="0" />
-          <button id="toggle-spin">Pausar rotación</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Catálogo -->
     <section id="catalogo" class="panel">
-      <h2>Catálogo de Relojes</h2>
-      <p>Haz clic en <em>Ver detalles</em> para ver más, o <em>Añadir</em> para llevarlo al carrito.</p>
-      <div id="catalogo-list" class="grid"></div>
+      <h2>⌚ Catálogo de Relojes</h2>
+      <div class="grid" id="product-list"></div>
     </section>
 
-    <!-- Comparador -->
-    <section id="comparador" class="panel">
-      <h2>Comparador de Relojes</h2>
-      <form id="form-comparador" aria-label="Comparador de relojes">
-        <label for="selectA">Reloj A</label>
-        <select id="selectA" required></select>
-
-        <label for="selectB">Reloj B</label>
-        <select id="selectB" required></select>
-
-        <button type="submit">Comparar</button>
-      </form>
-
-      <div id="comparacion-result"></div>
+    <section id="carrito" class="panel">
+      <h2>🛒 Tu Carrito</h2>
+      <ul id="cart-items"></ul>
+      <p><strong>Total:</strong> $<span id="cart-total">0</span> MXN</p>
+      <button id="checkout-btn">Finalizar compra 💕</button>
     </section>
 
-    <!-- Autenticación / Registro -->
-    <section id="autenticacion" class="panel">
-      <h2>Cuenta</h2>
-
+    <section id="cuenta" class="panel">
+      <h2>👤 Mi Cuenta</h2>
       <div class="auth-wrap">
         <div class="auth-box">
-          <h3>Iniciar sesión</h3>
-          <form id="form-login" autocomplete="on" aria-label="Formulario de inicio de sesión">
-            <label for="login-user">Usuario</label>
-            <input id="login-user" name="usuario" type="text" required />
-
-            <label for="login-pass">Contraseña</label>
-            <input id="login-pass" name="password" type="password" required />
-
-            <button type="submit">Entrar</button>
-          </form>
-          <p>¿No tienes cuenta? <button id="show-register" class="linklike">Regístrate</button></p>
+          <h3>Iniciar Sesión</h3>
+          <input type="text" id="login-user" placeholder="Usuario" />
+          <input type="password" id="login-pass" placeholder="Contraseña" />
+          <button onclick="login()">Entrar</button>
         </div>
 
         <div class="auth-box">
-          <h3>Registro</h3>
-          <form id="form-register" aria-label="Formulario de registro">
-            <label for="reg-user">Usuario</label>
-            <input id="reg-user" name="usuario" type="text" required minlength="3" />
-
-            <label for="reg-pass">Contraseña</label>
-            <input id="reg-pass" name="password" type="password" required minlength="6" />
-
-            <label for="reg-email">Correo</label>
-            <input id="reg-email" name="email" type="email" required />
-
-            <button type="submit">Crear cuenta</button>
-          </form>
+          <h3>Crear Cuenta</h3>
+          <input type="text" id="new-user" placeholder="Nuevo usuario" />
+          <input type="password" id="new-pass" placeholder="Contraseña" />
+          <button onclick="register()">Registrar</button>
         </div>
       </div>
-
-      <div id="user-panel" class="hidden">
-        <h3>Perfil</h3>
-        <p>Usuario: <strong id="user-name"></strong></p>
-        <button id="btn-logout">Cerrar sesión</button>
-        <button id="btn-gencert">Generar certificado de autenticidad</button>
-      </div>
-    </section>
-
-    <!-- Contacto -->
-    <section id="contacto" class="panel">
-      <h2>Contacto</h2>
-      <form id="form-contacto" aria-label="Formulario de contacto">
-        <label for="contact-nombre">Nombre</label>
-        <input id="contact-nombre" name="nombre" type="text" required />
-
-        <label for="contact-email">Correo</label>
-        <input id="contact-email" name="email" type="email" required />
-
-        <label for="contact-mensaje">Mensaje</label>
-        <textarea id="contact-mensaje" name="mensaje" rows="4" required></textarea>
-
-        <button type="submit">Enviar</button>
-      </form>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>&copy; <span id="year"></span> Tienda de Relojes de Lujo — Todos los derechos reservados</p>
+    <p>🌸 Tienda de relojes de lujo estilo Sanrio — hecho con amor 💖</p>
   </footer>
 
-  <!-- Carrito modal (simple) -->
-  <dialog id="dialog-carrito" aria-label="Carrito de compras">
-    <h3>Carrito</h3>
-    <div id="cart-items"></div>
-    <p>Total: <strong id="cart-total">0</strong> MXN</p>
-    <button id="btn-checkout">Pagar (simulado)</button>
-    <button id="btn-close-cart">Cerrar</button>
-  </dialog>
-
-  <script src="script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
+
